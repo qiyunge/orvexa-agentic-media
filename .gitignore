@@ -1,0 +1,36 @@
+# Model weights / checkpoints
+models/
+checkpoints/
+weights/
+
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.gguf
+
+# Hugging Face cache
+.cache/
+huggingface/
+
+# Generated media
+outputs/
+generated/
+artifacts/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,51 @@
+services:
+  orvexa-global-router:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./infra/global-router/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - orvexa-dc1-gateway
+      - orvexa-dc2-gateway
+    networks:
+      - orvexa-global
+
+  orvexa-dc1-gateway:
+    image: nginx:alpine
+    volumes:
+      - ./infra/dc1-gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+  
+    networks:
+      - orvexa-global
+      - orvexa-dc1
+
+  orvexa-dc2-gateway:
+    image: nginx:alpine
+    volumes:
+      - ./infra/dc2-gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - orvexa-global
+      - orvexa-dc2
+      
+  ## services
+  # rag inference service
+  # orvexa-dc1-rag-inference-service:
+  #   build: ./src/services/rag-inference-service
+  #   networks:
+  #     - orvexa-dc1
+
+  # rag index service
+  orvexa-dc1-rag-index-service:
+    build: ./src/services/rag-index-service
+    image: orvexa/rag-index-service:dev
+    networks:
+      - orvexa-dc1
+
+networks: 
+  orvexa-global:
+    driver: bridge
+  orvexa-dc1:
+    driver: bridge
+  orvexa-dc2:
+    driver: bridge

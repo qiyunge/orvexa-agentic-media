@@ -1,0 +1,26 @@
+models:
+  text_to_video:
+    wan_native:
+      repo_id: "Wan-AI/Wan2.1-T2V-1.3B"
+      revision: "main"
+      local_dir: "models/text_to_video/wan_native"
+      runtime: "wan"
+
+    wan_diffusers:
+      repo_id: "Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
+      revision: "main"
+      local_dir: "models/text_to_video/wan_diffusers"
+      runtime: "diffusers"
+
+    ltx:
+      repo_id: "ltx-ai/Wan2.1-T2V-1.3B-LTX"
+      revision: "main"
+      local_dir: "models/text_to_video/ltx"
+      runtime: "diffusers"
+
+  image_to_video:
+    stable_video_diffusion:
+      repo_id: "stabilityai/stable-video-diffusion-img2vid-xt"
+      revision: "main"
+      local_dir: "models/image_to_video/stable_video_diffusion"
+      runtime: "diffusers"

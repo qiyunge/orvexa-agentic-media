@@ -1,0 +1,25 @@
+[project]
+name = "orvexa-agentic-media"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.15.0",
+    "diffusers>=0.40.0",
+    "huggingface-hub>=1.31.0",
+    "imageio>=2.37.4",
+    "imageio-ffmpeg>=0.6.0",
+    "pyyaml>=6.0.3",
+    "torch>=2.14.0",
+    "torchvision>=0.29.0",
+    "transformers>=5.17.0",
+]
+
+[project.scripts]
+orvexa-agentic-media = "orvexa_agentic_media:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
