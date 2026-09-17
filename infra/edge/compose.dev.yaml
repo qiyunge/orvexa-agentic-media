@@ -1,0 +1,10 @@
+services:
+  orvexa-global-router:
+    ports:
+      - "8000:80"
+    
+
+  orvexa-dc1-gateway:
+    ports:
+      - "8001:80"
+    

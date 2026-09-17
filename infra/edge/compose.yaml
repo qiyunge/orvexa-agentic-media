@@ -1,0 +1,37 @@
+services:
+  orvexa-global-router:
+    image: nginx:alpine
+    ports:
+      - "${GLOBAL_ROUTER_PORT:-8000}:80"
+    volumes:
+      - ./global-router/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - orvexa-dc1-gateway
+      
+    networks:
+      - orvexa-global
+
+  orvexa-dc1-gateway:
+    image: nginx:alpine
+    volumes:
+      - ./dc1-gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+  
+    networks:
+      - orvexa-global
+      - orvexa-dc1
+
+  # orvexa-dc2-gateway:
+  #   image: nginx:alpine
+  #   volumes:
+  #     - ./infra/edge/dc2-gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+  #   networks:
+  #     - orvexa-global
+  #     - orvexa-dc2
+
+networks: 
+  orvexa-global:
+    driver: bridge
+  orvexa-dc1:
+    external: true
+    name: orvexa-dc1-network
+  

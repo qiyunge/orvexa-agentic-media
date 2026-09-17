@@ -1,4 +1,0 @@
-services:
-  orvexa-dc1-rag-index-service:
-    env_file:
-      - ./src/services/rag-index-service/.env

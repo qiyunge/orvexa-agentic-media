@@ -1,0 +1,17 @@
+services:
+
+      
+
+  # rag inference service
+  # orvexa-dc1-rag-inference-service:
+  #   build: ./src/services/rag-inference-service
+  #   networks:
+  #     - orvexa-dc1
+
+  # rag index service
+  orvexa-dc1-rag-index-service:
+    build: ./services/rag-index-service
+    image: orvexa/rag-index-service:dev
+    ports:
+      - "8100:8000"
+ 

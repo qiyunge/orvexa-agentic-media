@@ -1,0 +1,20 @@
+services:
+
+  # rag inference service
+  # orvexa-dc1-rag-inference-service:
+  #   build: ./src/services/rag-inference-service
+  #   networks:
+  #     - orvexa-dc1
+
+  # rag index service
+  orvexa-dc1-rag-index-service:
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAMESPACE:?IMAGE_NAMESPACE is required}/rag-index-service:${IMAGE_TAG:-latest}"
+    pull_policy: missing
+    networks:
+      - orvexa-dc1
+
+networks: 
+  orvexa-dc1:
+    external: true
+    name:  "${DC1_NETWORK_NAME:-orvexa-dc1-network}"
+ 
