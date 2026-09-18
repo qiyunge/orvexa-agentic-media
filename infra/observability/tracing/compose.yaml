@@ -1,0 +1,17 @@
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    volumes:
+      - jaeger-data:/var/lib/jaeger
+
+    networks:
+      - observability_network
+    restart: unless-stopped
+
+volumes:
+  jaeger-data:
+  
+networks:
+  observability_network:
+    external: true
+    name: orvexa-observability-network

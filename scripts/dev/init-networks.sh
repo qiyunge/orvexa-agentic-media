@@ -15,3 +15,4 @@ create_network() {
 
 create_network "orvexa-dc1-network"
 create_network "orvexa-data-network"
+create_network "orvexa-observability-network"

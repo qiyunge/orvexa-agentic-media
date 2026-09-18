@@ -1,0 +1,20 @@
+sources:
+  docker_logs:
+    type: docker_logs
+    docker_host: unix:///var/run/docker.sock
+    exclude_containers:
+      - "orvexa-vector-*"
+
+sinks:
+  elasticsearch:
+    type: elasticsearch
+    inputs:
+      - docker_logs
+
+    endpoints:
+      - http://elasticsearch:9200
+
+    mode: bulk
+    bulk:
+      index: "orvexa-logs-%Y-%m-%d"
+

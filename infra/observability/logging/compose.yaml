@@ -10,24 +10,24 @@ services:
     networks:
       - observability_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health?pretty||exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    volumes:
-      - ./logstash/pipeline:/usr/share/logstash/pipeline
+  # logstash:
+  #   image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+  #   volumes:
+  #     - ./logstash/pipeline:/usr/share/logstash/pipeline
   
-    networks:
-      - observability_network
-    depends_on:
-      - elasticsearch:
-        condition: service_healthy
+  #   networks:
+  #     - observability_network
+  #   depends_on:
+  #     - elasticsearch:
+  #       condition: service_healthy
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
@@ -37,8 +37,8 @@ services:
     networks:
       - observability_network
     depends_on:
-      - elasticsearch:
-        condition: service_healthy
+      elasticsearch:
+          condition: service_healthy
 
   # filebeat:
   #   image: docker.elastic.co/beats/filebeat:${ELASTIC_VERSION}
@@ -56,13 +56,24 @@ services:
   #   depends_on:
   #     - logstash
 
+  vector:
+    image: timberio/vector:latest-alpine
+    volumes:
+      - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
+    networks:
+      - observability_network
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+ 
 
 volumes:
   elasticsearch-data:
-  filebeat-data:
 
 networks:
   observability_network:
     name: orvexa-observability-network
     driver: bridge
+    external: true
