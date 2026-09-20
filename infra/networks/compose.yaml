@@ -1,0 +1,17 @@
+services: 
+
+  network-bootstrap:
+    image:  alpine:3.22
+    command: ["true"]
+    restart: "no"
+    networks:
+      - orvexa-dc-network
+      - orvexa-rag-network
+networks: 
+  orvexa-dc-network:
+    name:  "${ORVEXA_DC_NETWORK_NAME:?ORVEXA_DC_NETWORK_NAME is required}"
+  
+  orvexa-rag-network:
+    name:  "${ORVEXA_RAG_NETWORK_NAME:?ORVEXA_RAG_NETWORK_NAME is required}"
+  
+  

@@ -7,12 +7,17 @@ services:
   #     - orvexa-dc1
 
   # rag index service
-  orvexa-dc1-rag-index-service:
+  orvexa-rag-index-service:
     image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAMESPACE:?IMAGE_NAMESPACE is required}/rag-index-service:${IMAGE_TAG:-latest}"
     pull_policy: missing
+    volumes:
+      - index_models_cache:/models
     networks:
       - orvexa-dc1
 
+volumes:
+  index_models_cache:
+    
 networks: 
   orvexa-dc1:
     external: true

@@ -1,0 +1,4 @@
+services:
+  orvexa-rag-index-service:
+    image: ${IMAGE_REGISTRY:?IMAGE_REGISTRY is required}/${RAG_INDEX_IMAGE_NAME:?RAG_INDEX_IMAGE_NAME is required}:${IMAGE_TAG:?IMAGE_TAG is required}
+  

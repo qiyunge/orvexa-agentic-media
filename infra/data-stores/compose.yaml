@@ -1,6 +1,7 @@
 services:
   postgres:
     image: ${POSTGRES_IMAGE:-postgres:17}
+    profiles: ["postgres"]
     restart: unless-stopped
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-orvexa}
@@ -18,19 +19,20 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    networks:
-      - data-network
+   
 
   qdrant:
     image: ${QDRANT_IMAGE:-qdrant/qdrant:latest}
+    profiles: ["qdrant"]
     restart: unless-stopped
     volumes:
       - qdrant-data:/qdrant/storage
     networks:
-      - data-network
+      - rag-network
 
   neo4j:
     image: ${NEO4J_IMAGE:-neo4j:5-community}
+    profiles: ["neo4j"]
     restart: unless-stopped
     environment:
       NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:?NEO4J_PASSWORD is required}
@@ -46,11 +48,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    networks:
-      - data-network
+    
 
   redis:
     image: ${REDIS_IMAGE:-redis:8-alpine}
+    profiles: ["redis"]
     restart: unless-stopped
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD is required}
@@ -82,6 +84,6 @@ volumes:
   redis-data:
   
 networks:
-  data-network:
+  rag-network:
     external: true
-    name: orvexa-data-network
+    name: orvexa-rag-network

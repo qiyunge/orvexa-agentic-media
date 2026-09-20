@@ -1,0 +1,23 @@
+services:
+
+  orvexa-rag-index-service:
+   
+    volumes:
+      - index_models_cache:/models
+    networks:
+      - orvexa-dc
+      - orvexa-rag
+
+
+volumes:
+  index_models_cache:
+    
+networks: 
+  orvexa-dc:
+    external: true
+    name:  "${ORVEXA_DC_NETWORK_NAME:?ORVEXA_DC_NETWORK_NAME is required}"
+
+  orvexa-rag:
+    external: true
+    name:  "${ORVEXA_RAG_NETWORK_NAME:?ORVEXA_RAG_NETWORK_NAME is required}"
+   

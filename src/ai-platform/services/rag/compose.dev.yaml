@@ -1,0 +1,6 @@
+services:
+  orvexa-rag-index-service:
+    build: ./rag-index-service
+    image: orvexa/rag-index-service:dev
+    ports:
+      - "8100:8000"
